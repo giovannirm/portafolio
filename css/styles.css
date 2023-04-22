@@ -81,6 +81,7 @@ body {
     outline: none;
     transition: all ease-in-out .5s;
     cursor: pointer;
+    background-color: var(--background);
 }
 
 .button-page:hover {
