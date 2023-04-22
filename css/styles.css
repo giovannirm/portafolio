@@ -1,0 +1,628 @@
+/* Generales */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    transition: all ease-in-out .35s;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.container {
+    padding: 1em 4em;
+}
+
+/*  */
+.title-container {
+    display: flex;
+}
+
+.title-container .title-section {
+    color: var(--color);
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    
+}
+
+.title-section::after {
+    content: ""; /*Debe estar vacío sino se pintará en el html*/
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    height: 3px;
+    width: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color);
+}
+/*  */
+
+/* No entiendo por qué no funciona Estilizando el cover page */
+.left-content,
+.right-content {
+    flex: 1;
+    padding: 1.5em 0;
+}
+
+.left-content h1 {
+    font-weight: 900;
+    font-size: 2.5em;
+    transition: all ease-in-out .45s;
+    color: var(--color);
+}
+
+.left-content p {
+    font-size: .95rem;
+    line-height: 24px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+    color: var(--color);
+}
+
+.button-page {
+    text-decoration: none;
+    padding: .8em 1.5em;
+    border: 1px solid var(--color);
+    /* Para qué sobreescribir */
+    /* border: 1px solid #000;
+    border-color: var(--color); */
+    border-radius: 30px;
+    color: var(--color);
+    font-size: .88rem;
+    outline: none;
+    transition: all ease-in-out .5s;
+    cursor: pointer;
+}
+
+.button-page:hover {
+    background-color: var(--color);
+    color: var(--background);
+}
+
+.right-content {
+    display: flex;
+}
+
+.right-content img {
+    max-width: 90%;
+    margin-left: auto;
+}
+/*  */
+
+.page {
+    height: 100%;
+    font-family: sans-serif;
+    display: grid;
+    padding-top: 70px;
+    grid-template-areas: "start" "about" "abilities" "projects" "contact" "footer";
+    grid-template-rows: calc(100vh - 70px) 100vh auto auto auto 50px;
+    grid-template-columns: 1fr;
+}
+
+/* Variables definidas para la clase page */
+:root {
+    --color: #403d3d;
+    --background: #fff;
+    --background-head: #ffffff;
+    --background-2: #eee;
+    --border-color: rgba(255, 255, 255, 0);
+    --background-menu: #eee;
+}
+/*  */
+.page section.start {
+    grid-area: start;
+    background-color: var(--background);
+}
+
+.page section.about {
+    grid-area: about;
+    background-color: var(--background-2);
+}
+
+.page section.abilities {
+    grid-area: abilities;
+    background-color: var(--background);
+}
+
+.page section.projects {
+    grid-area: projects;
+    background-color: var(--background-2);
+}
+
+.page section.contact {
+    grid-area: contact;
+    background-color: var(--background);
+}
+
+.page footer {
+    grid-area: footer;
+    background-color: var(--background);
+}
+
+@media screen and (max-width: 750px) {
+    .page {
+        grid-template-rows: calc(100vh - 70px) auto auto auto auto 50px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .container {
+        padding: 1em 2em;
+    }
+    .left-content h1 {
+        font-size: 22px;
+    }
+    .left-content p {
+        font-size: .9rem;
+    }
+    .button-page {
+        font-size: .8rem;
+    }
+    .title-section {
+        font-size: 20px;
+    }
+}
+/*  */
+/* End Generales */
+
+/* Header */
+.page header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: var(--background-head);
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 2px 1px 6px rgba(0, 0, 0, .4);
+    align-items: center;
+    /* No entiendo por qué separarlo */
+    /* border-bottom-color: var(--border-color);
+    border-bottom-width: 1px;
+    border-bottom-style: solid; */
+    border-bottom: 1px solid var(--border-color);
+    z-index: 50;
+}
+
+.page header .logo {
+    text-decoration: none;
+    color: var(--color);
+    font-size: 0.8em;
+    transition: all ease-in-out .4s;
+}
+
+.page header .logo::selection {
+    color: var(--color);
+}
+
+.page header .logo h1::first-letter {
+    color: red;
+    font-size: 1.3em;
+    font-weight: 900;
+}
+
+.page header nav li {
+    display: inline-block;
+    margin: 0 .4em;
+}
+
+.page header nav li a {
+    color: var(--color);
+    text-decoration: none;
+    transition: all ease-in-out .4s; /*es para el modo dark, en la transición se vea más xvre*/
+    font-weight: 400;
+    font-size: .93rem;
+}
+
+header .hamburger,
+.page header .overlay-menu {
+    display: none;
+}
+
+.page .hamburger i {
+    color: var(--color)
+}
+
+@media screen and (max-width: 750px) {
+    .page .hamburger {
+        display: inline-block;
+    }
+    .page header nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 60%;
+        height: 100%;
+        background-color: var(--background-menu);
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-around;
+        align-items: center;
+        transition: all ease-in-out .4s;
+        box-shadow: -2px -2px -3px rgba(0, 0, 0, .5);
+        z-index: 100;
+    }
+    .page header.menu-active nav {
+        right: 0;
+    }
+    .page header.menu-active .overlay-menu {
+        position: fixed;
+        display: flex;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 60;
+        background-color: rgba(25, 49, 99, .6);
+    }
+    .page header nav a {
+        color: var(--color);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .page header nav {
+        width: 78%;
+    }
+    .page header nav a {
+        font-size: .82rem;
+    }
+}
+/* End Header */
+
+/* Start */
+.start {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (max-width: 750px) {
+    .start {
+        flex-flow: column-reverse nowrap;
+    }
+}
+/* End Start */
+
+/* About */
+.page section.about {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page section.about .right-content img {
+    /* border-radius: 10px; */
+    /* box-shadow: 10px 10px 10px #000; */
+    max-width: 80%;
+    max-height: 60%;
+}
+
+@media screen and (max-width: 750px) {
+    .page .about {
+        flex-flow: column nowrap;
+    }
+    .page .about .right-content {
+        flex: auto;
+    }
+    .page .about .right-content img {
+        margin: 0 auto;
+        max-height: 90%;
+    }
+}
+/* End About */
+
+/* Abilities */
+.page .abilities {
+    padding: 5.5em 0;
+}
+
+.page .abilities .abilities-list {
+    margin: auto;
+    max-width: 400px;
+}
+
+.abilities-list .ability-bar .bar-title {
+    position: relative;
+    font-size: 1em;
+    text-align: left;
+    margin: 0 0 5px 0;
+    color: var(--color);
+    transition: all ease-in-out .4s;
+}
+
+.abilities-list .ability-bar .bar-title .percent {
+    position: absolute;
+    right: 0;
+}
+
+.abilities-list .ability-bar .bar {
+    position: relative;
+    background-color: #d8d8d8;
+    height: 10px;
+    border-radius: 25px;
+    margin: 0 0 20px 0;
+}
+
+.abilities-list .ability-bar .bar .percent-bar {
+    position: absolute;
+    height: 10px;
+    transition: all ease-in-out .4s;
+}
+
+.abilities-list .javascript .percent-bar {
+    width: 60%;
+    border-radius: 25px;
+    background-color: #f8dc3d;
+    animation: percent-60 ease-out 2s;
+}
+
+.abilities-list .html .percent-bar {
+    width: 90%;
+    border-radius: 25px;
+    background-color: #e44d26;
+    animation: percent-90 ease-out 2s;
+}
+
+.abilities-list .css .percent-bar {
+    width: 70%;
+    border-radius: 25px;
+    background-color: #2173f7;
+    animation: percent-70 ease-out 2s;
+}
+
+@keyframes percent-60 {
+    from {
+        width: 0;
+    }
+    to {
+        width: 60%;
+    }
+}
+
+@keyframes percent-70 {
+    from {
+        width: 0;
+    }
+    to {
+        width: 70%;
+    }
+}
+
+@keyframes percent-90 {
+    from {
+        width: 0;
+    }
+    to {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .page section.abilities .abilities-list {
+        max-width: 85%;
+        margin: auto;
+    }
+}
+/* End Abilities */
+
+/* Project */
+.page section.projects {
+    padding-top: 5.5em;
+    padding-bottom: 4.5em;
+    
+}
+
+section.projects .projects-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 25px;
+    padding: 2em;
+}
+
+.projects-list .card-project {
+    max-width: 100%;
+    background-color: var(--background);
+    display: flex;
+    flex-flow: column nowrap;
+    transition: all ease-in-out .4s;
+    padding: .4em .6em;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border-color);
+    text-decoration: none;
+}
+
+.projects-list .card-project:hover .top-card img {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.projects-list .card-project .top-card {
+    height: 250px;
+    overflow: hidden;
+}
+
+.projects-list .card-project .bottom-card {
+    flex: 1;
+    padding: .5em .8em 1em;
+}
+
+.projects-list .card-project .bottom-card h3, 
+.projects-list .card-project .bottom-card p {
+    color: var(--color);
+    transition: all ease-in-out .4s;
+}
+
+.projects-list .card-project .bottom-card p {
+    margin: 5px 0px 18px 0;
+}
+
+.projects-list .card-project .top-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all ease-in-out .4s;
+}
+
+@media screen and (max-width: 1000px) {
+    section.projects .projects-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 850px) {
+    section.projects .projects-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 650px) {
+    section.projects .projects-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    section.projects .projects-list {
+        padding: 1em 0;
+
+    }
+    .projects-list .card-project .bottom-card h3 {
+        font-size: 16px;
+    }
+    .projects-list .card-project .bottom-card p {
+        font-size: .82rem;
+    }
+}
+/* End Projects */
+
+/* Contact */
+.page section.contact {
+    display: flex;
+    padding: 2.5em 0 2em; 
+}
+
+.page .contact .social-icons {
+    display: flex;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+.page .contact .social-icons a {
+    margin: 0 .5em;
+    color: var(--color);
+    font-size: 1.3em;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--color);
+    /* Para alinear la etiqueta a */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.page .contact .social-icons a:hover {
+    background-color: var(--color);
+    color: var(--background);
+}
+
+@media screen and (max-width: 450px) {
+    .page .contact .social-icons a {
+        width: 40px;
+        height: 40px;
+        margin: 0 .3em;
+    }
+}
+/* End Contact */
+
+/* Footer */
+.page footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page footer p {
+    color: var(--color);
+}
+/* End Footer */
+
+/* Switch */
+.switch-container {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+
+.switch-container .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    border-radius: 34px;
+}
+
+.switch-container .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: all ease-in-out .4s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: all ease-in-out .4s;
+}
+
+/* Si está chequeado cambiar los valores de la clase slider */
+input:checked + .slider {
+    background-color: rgba(34, 33, 33);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px rgba(34, 33, 33);
+}
+
+input:checked + .slider::before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round::before {
+    border-radius: 50%;
+}
+/* End Switch */
